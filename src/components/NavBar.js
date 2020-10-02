@@ -1,11 +1,12 @@
 import React from "react";
-import Routes from "../../services/Routes";
+import Routes from "../services/Routes";
 
 // Imports
 import {
   BrowserRouter as Router,
   Link
 } from "react-router-dom";
+import {getToken} from "../services/utils/getToken";
 
 const NavBar = () => {
 
@@ -20,7 +21,6 @@ const NavBar = () => {
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"/>
             </button>
-
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
@@ -31,11 +31,18 @@ const NavBar = () => {
                 </li>
               </ul>
               <div className="text-white">
-                <ul className="navbar-nav mr-auto">
-                  <li className="nav-item">
-                    <Link className="nav-link active" to="/auth">Login / Register</Link>
-                  </li>
-                </ul>
+                {getToken() ?
+                  <ul className="navbar-nav mr-auto">
+                    <li className="nav-item">
+                      <Link className="nav-link active" to="/auth">Disconnect</Link>
+                    </li>
+                  </ul>
+                  : <ul className="navbar-nav mr-auto">
+                    <li className="nav-item">
+                      <Link className="nav-link active" to="/auth">Login / Register</Link>
+                    </li>
+                  </ul>
+                }
               </div>
             </div>
           </div>
