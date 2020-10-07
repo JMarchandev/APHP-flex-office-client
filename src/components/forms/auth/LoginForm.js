@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 
+import {pushToken} from "../../../services/utils/pushToken";
+
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
@@ -30,12 +32,11 @@ class LoginForm extends React.Component {
         password: sendData.password
       })
       .then(response => {
-        document.cookie = "JWToken="+response.data.jwt
+        pushToken(response.data.jwt)
         window.location.href = '/profile'
       })
       .catch(error => {
-        console.log(error)
-        //this.setState({error: error.response.data.data[0].messages[0].message});
+        this.setState({error});
       });
   }
 

@@ -2,8 +2,8 @@ import React from "react";
 
 // Imports
 import "./auth.css"
-import LoginForm from "../../components/forms/LoginForm";
-import RegisterForm from "../../components/forms/RegisterForm";
+import LoginForm from "../../components/forms/auth/LoginForm";
+import RegisterForm from "../../components/forms/auth/RegisterForm";
 
 const Auth = () => {
   return(

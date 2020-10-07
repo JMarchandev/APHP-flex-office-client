@@ -1,9 +1,14 @@
 import React from "react";
 
+//Imports
+import UpdateProfileForm from '../../components/forms/profile/UpdateProfileForm'
+
 const Profile = () => {
 
   return(
-    <div className="container">profile</div>
+    <div className="container">
+      <UpdateProfileForm />
+    </div>
   )
 }
 

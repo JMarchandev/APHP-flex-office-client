@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios"
-import {getToken} from "../../services/utils/getToken"
+import {getToken} from "../../../services/utils/getToken"
+import {pushToken} from "../../../services/utils/pushToken";
 
 class RegisterForm extends React.Component {
   constructor(props) {
@@ -37,7 +38,7 @@ class RegisterForm extends React.Component {
           password: sendData.password
         })
         .then(response => {
-          document.cookie = "JWToken="+response.data.jwt
+          pushToken(response.data.jwt)
           this.setState({successMessage: "You account is created ", isLoading: false})
         })
         .catch(error => {

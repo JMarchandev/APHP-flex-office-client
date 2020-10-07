@@ -1,9 +1,12 @@
 import React from "react";
+import PlanningPicker from "../../components/planning/PlanningPicker";
 
 const Planning = () => {
 
   return(
-    <div className="container">Planning</div>
+    <div className="container">
+      <PlanningPicker />
+    </div>
   )
 }
 

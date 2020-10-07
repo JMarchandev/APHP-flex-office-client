@@ -7,8 +7,10 @@ import {
   Link
 } from "react-router-dom";
 import {getToken} from "../services/utils/getToken";
+import {destroyToken} from "../services/utils/destroyToken";
 
 const NavBar = () => {
+
 
   return (
     <Router>
@@ -34,7 +36,7 @@ const NavBar = () => {
                 {getToken() ?
                   <ul className="navbar-nav mr-auto">
                     <li className="nav-item">
-                      <Link className="nav-link active" to="/auth">Disconnect</Link>
+                      <a className="nav-link active" onClick={destroyToken} href="#">Disconnect</a>
                     </li>
                   </ul>
                   : <ul className="navbar-nav mr-auto">
