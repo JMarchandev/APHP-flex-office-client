@@ -9,16 +9,5 @@ export async function getCurrentUser() {
         Authorization: `Bearer ${getToken()}`
       }
     }
-  ).then(result => {
-    return ({
-      user: result.data,
-      isLoading: false,
-      error: false
-    })
-  }).catch(error => {
-    return ({
-      error: `${error}`,
-      isLoading: false
-    });
-  })
+  )
 }
