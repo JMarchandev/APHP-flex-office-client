@@ -32,59 +32,34 @@ const PlanningPicker = () => {
       })
   }, [])
 
-  useEffect(() => {
-    if (selectedRoom && selectDate) {
-      selectDate.setMinutes(selectDate.getMinutes() - selectDate.getTimezoneOffset());
-      const dateFormat = selectDate.toISOString().split('T')[0].replaceAll('-', '');
-
-      axios
-        .get(`http://localhost:1337/events?eventDate=${dateFormat}&room=${selectedRoom.id}`, {
-            headers: {
-              authorization: `Bearer ${getToken()}`
-            }
-          }
-        )
-        .then(response => {
-          setSelectDateRooms(response.data)
-        })
-        .catch(error => {
-          setError(error)
-        })
-    }
-  }, [selectedRoom, selectDate])
-
-/*  useEffect(async () => {
-     await axios
-      .post(`http://localhost/1337/events`, {
-        headers: {authorization: `Bearer ${getToken()}`},
-        body: {eventDate: selectDate, room: selectedRoom.id, user_id: currentUser.id}
-      })
-      .then(response => {
-        setSuccess(response.data.message)
-      })
-      .catch(error => {
-        console.log(error)
-        setError(error.message)
-      })
-  }, [])*/
-
   const handleClickRoom = (event, room) => {
     event.preventDefault()
     setSelectedRoom(room)
   }
 
   const handleClickChooseDate = (value) => {
-    const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
+/*    const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
     setSelectDateFormat(value.toLocaleDateString('fr-FR', options))
     //if (value < currentDate) {
     //  setError('Cette date est déjà passée')
     //} else if (value >= currentDate) {
-    //  setError(null)
+    //  setError(null)*/
 
-    axios.get(`http://localhost:1337/event/20201006`)
+    value.setMinutes(value.getMinutes() - value.getTimezoneOffset());
+    const dateFormat = value.toISOString().split('T')[0];
+
+    axios.get(`http://localhost:1337/event/${dateFormat}`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
       .then(response => {
-      console.log(response)
-    }).catch(error => {console.log(error)})
+        console.log(response)
+
+      })
+      .catch(error => {
+        console.log(error)
+      })
     setSelectDate(value)
     //}
   }
