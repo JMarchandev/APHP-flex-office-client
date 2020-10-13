@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios'
 
 //Internal imports
 import { getToken } from "../../services/utils/getToken";
@@ -8,9 +7,11 @@ import { getAvailableRoomsByDate } from "../../services/api/events/getAvailableR
 import { getFormartedDate } from "../../services/utils/getFormartedDate"
 
 //External imports
-import Calendar, { CenturyView } from "react-calendar";
-import 'react-calendar/dist/Calendar.css';
+import axios from 'axios'
 import qs from "querystring"
+import Calendar from "react-calendar";
+import 'react-calendar/dist/Calendar.css';
+
 
 const PlanningPicker = () => {
   const [error, setError] = useState(null)
