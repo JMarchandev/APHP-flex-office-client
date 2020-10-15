@@ -1,21 +1,25 @@
 import React from 'react';
 
+//Internal immports
+import EditingModal from './EditingModal';
+
 class DetailCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentEvent: this.props.event
+            currentEvent: this.props.event,
+            isEditing: false
         }
     }
 
     handleEditingClick(e) {
         e.preventDefault()
-
+        this.setState({ isEditing: true })
     }
 
 
     render() {
-        const event = this.state.currentEvent.event
+        const event = this.props.event.event
         return (
             <div>
                 <div className="card my-3">
@@ -46,6 +50,9 @@ class DetailCard extends React.Component {
                             </tbody>
                         </table>
                     </div>
+                    {this.state.isEditing ?
+                        <EditingModal event={event} />
+                        : ""}
                     <div className="d-flex justify-content-around">
                         <button className="btn btn-warning float-right m-2 w-25" onClick={event => this.handleEditingClick(event)} >Editer</button>
                         <button className="btn btn-danger float-right m-2 w-25">Supprimer</button>

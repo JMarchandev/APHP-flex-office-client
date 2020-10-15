@@ -33,9 +33,6 @@ const Planning = () => {
     return (
         <div>
             <Calendar eventsObject={eventsObject} />
-            {console.log(currentUser)}
-            {console.log(userEvents)}
-            {console.log(eventsObject)}
         </div>
     )
 }

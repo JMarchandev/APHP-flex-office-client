@@ -20,6 +20,8 @@ class Calendar extends React.Component {
     }
 
     handleEventClick(value) {
+        this.setState({events: null})
+
         this.setState({ events: value.ressource })
     }
 
