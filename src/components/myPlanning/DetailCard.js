@@ -1,7 +1,11 @@
 import React from 'react';
 
+//External imports
+import axios from 'axios';
+
 //Internal immports
 import EditingModal from './EditingModal';
+import { getToken } from '../../services/utils/getToken';
 
 class DetailCard extends React.Component {
     constructor(props) {
@@ -15,6 +19,26 @@ class DetailCard extends React.Component {
     handleEditingClick(e) {
         e.preventDefault()
         this.setState({ isEditing: true })
+    }
+
+    handleClickDeleteEvent(e) {
+        e.preventDefault()
+        let eventId = this.props.event.event.id
+        let confirmResp = window.confirm('Supprimer l\'événement ? Cette action sera irremediable')
+
+        if (confirmResp == false) {
+            return; 
+        } else {
+            axios.delete(`http://localhost:1337/events/${eventId}`, {
+                headers: {
+                    Authorization: `Bearer ${getToken()}`
+                }
+            }).then(response => {
+                window.location = 'http://localhost:3000/myplanning';
+            }).catch(error => {
+                console.error(error)
+            })
+        }
     }
 
 
@@ -55,7 +79,7 @@ class DetailCard extends React.Component {
                         : ""}
                     <div className="d-flex justify-content-around">
                         <button className="btn btn-warning float-right m-2 w-25" onClick={event => this.handleEditingClick(event)} >Editer</button>
-                        <button className="btn btn-danger float-right m-2 w-25">Supprimer</button>
+                        <button className="btn btn-danger float-right m-2 w-25" onClick={event => this.handleClickDeleteEvent(event)}>Supprimer</button>
                     </div>
                 </div>
             </div>

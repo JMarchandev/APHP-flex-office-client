@@ -72,7 +72,8 @@ class updateProfileForm extends React.Component {
         console.log(response)
         this.setState({
           isLoading: false,
-          error: false
+          error: false,
+          successMessage: 'Votre profil à bien été modifié.' 
         })
       })
       .catch(error => {
@@ -90,15 +91,21 @@ class updateProfileForm extends React.Component {
 
   render() {
     console.log(this.state)
-    const {isLoading, error} = this.state;
+    const {isLoading, error, successMessage} = this.state;
     if (isLoading) {
       return <p>Loading ...</p>;
     }
     return (
       <div className="my-3">
         {error ?
-          <div className="alert alert-danger d-flex" role="alert">
-            <p>{this.state.error}</p>
+          <div className="alert alert-danger d-flex align-content-center" role="alert">
+            <p>{error}</p>
+          </div>
+          : null
+        }
+        {successMessage ?
+          <div className="alert alert-success d-flex align-content-center" role="alert">
+            <p>{successMessage}</p>
           </div>
           : null
         }

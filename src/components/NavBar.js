@@ -6,11 +6,17 @@ import {
   BrowserRouter as Router,
   Link
 } from "react-router-dom";
-import {getToken} from "../services/utils/getToken";
-import {destroyToken} from "../services/utils/destroyToken";
+import { getToken } from "../services/utils/getToken";
+import { destroyToken } from "../services/utils/destroyToken";
 
 const NavBar = () => {
 
+  const handleDisconnectClick = (event) => {
+    event.preventDefault()
+    destroyToken()
+
+    window.location = "http://localhost:3000/auth"
+  }
 
   return (
     <Router>
@@ -19,9 +25,9 @@ const NavBar = () => {
           <div className="container">
             <Link className="navbar-brand" to="/">Flex Office APHP</Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span className="navbar-toggler-icon"/>
+              data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon" />
             </button>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
@@ -39,7 +45,7 @@ const NavBar = () => {
                 {getToken() ?
                   <ul className="navbar-nav mr-auto">
                     <li className="nav-item">
-                      <a className="nav-link active" onClick={destroyToken} href="#">Disconnect</a>
+                      <a className="nav-link active" onClick={event => handleDisconnectClick(event)} href="#">Disconnect</a>
                     </li>
                   </ul>
                   : <ul className="navbar-nav mr-auto">
@@ -52,7 +58,7 @@ const NavBar = () => {
             </div>
           </div>
         </nav>
-        <Routes/>
+        <Routes />
       </div>
     </Router>
   )

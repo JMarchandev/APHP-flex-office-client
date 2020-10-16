@@ -13,7 +13,7 @@ import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
 
 
-const PlanningPicker = () => {
+const BookingPicker = () => {
    const [error, setError] = useState(null)
    const [success, setSuccess] = useState(null)
    const [isLoading, setIsLoading] = useState(true)
@@ -25,7 +25,7 @@ const PlanningPicker = () => {
    const [selectDate, setSelectDate] = useState(null)
    const [currentUser, setCurrentUser] = useState([])
 
-   useEffect(async () => {
+   useEffect(() => {
       getCurrentUser().then(response => {
          setCurrentUser(response.data)
       }).catch(error => {
@@ -102,7 +102,7 @@ const PlanningPicker = () => {
          {success ?
             <div className="mt-1 alert alert-success d-flex justify-content-between align-items-center" role="alert">
                {success}
-               <a href="/" className="btn btn-success">Mes reservations</a>
+               <a href="/myplanning" className="btn btn-success">Mes reservations</a>
             </div>
             : ""
          }
@@ -139,7 +139,7 @@ const PlanningPicker = () => {
                                     <button onClick={event => handleSubmitBooking(event)}
                                             className="btn btn-primary">Reserver</button>
                                     : ""}
-                                 {success ? <a href="/" className="btn btn-success">Mes reservations</a> : ""}
+                                 {success ? <a href="/myplanning" className="btn btn-success">Mes reservations</a> : ""}
                               </div>
                            </div>
                         </div>
@@ -152,4 +152,4 @@ const PlanningPicker = () => {
    )
 }
 
-export default PlanningPicker;
+export default BookingPicker;

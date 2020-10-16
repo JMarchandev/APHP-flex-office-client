@@ -1,8 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+
+//Internal imports 
 import { getCurrentUser } from '../../services/api/getCurrentUser';
 import { getAvailableRoomsByDate } from '../../services/api/events/getAvailableRoomsByDate';
 import { getCalendarFormatedDate } from '../../services/utils/getCalendarFormatedDate';
 import { getRooms } from '../../services/api/getRooms';
+import { getToken } from '../../services/utils/getToken';
+
+//External inmports
+import axios from 'axios';
+import qs from 'querystring'
 
 class UpdateEventForm extends React.Component {
     constructor(props) {
@@ -16,6 +23,7 @@ class UpdateEventForm extends React.Component {
             newRoom: null,
             currentUser: []
         }
+        this.handleRoomChange = this.handleRoomChange.bind(this)
     }
 
     componentDidMount() {
@@ -49,40 +57,48 @@ class UpdateEventForm extends React.Component {
         }
     }
 
-   handleRoomChange(event) {
-       console.log(event.target.room.value)
-       //this.setState({newRoom: event.target.room['data-room'].value})
-   }
+    handleRoomChange(event) {
+        this.setState({ newRoom: this.state.rooms[event.target.value] })
+    }
 
     handleSubmit(event) {
-       event.preventDefault()
-       let eventDate;
-       let user;
-       let room;
+        event.preventDefault()
+        let eventDate;
+        let user;
+        let room;
+        let eventId = this.state.event.id
 
-       console.log(event.target.room)
+        if (this.props.newDate) {
+            eventDate = getCalendarFormatedDate(this.props.newDate)
+        } else {
+            eventDate = event.target.currentEventDate.value
+        }
 
-       if (this.props.newDate) {
-          eventDate = getCalendarFormatedDate(this.props.newDate)
-       } else {
-          eventDate = event.target.currentEventDate.value
-       }
+        if (this.state.newRoom !== null) {
+            room = this.state.newRoom.id
+        } else {
+            room = this.state.event.room.id
+        }
 
-       if (this.state.newRoom !== null) {
-          room = this.state.newRoom
-       } else {
-          room = this.state.event.room
-       }
+        user = this.state.currentUser.id
 
-       user = this.state.currentUser
+        const requestBody = {
+            eventDate: eventDate,
+            user_id: user,
+            room: room,
+        }
 
-       const requestBody = {
-          eventDate: eventDate,
-          user_id: user,
-          room: room,
-       }
+        const config = {
+            headers: {
+                Authorization: `Bearer ${getToken()}`
+            }
+        }
 
-       console.log(requestBody)
+        axios.put(`http://localhost:1337/events/${eventId}`, qs.stringify(requestBody), config)
+            .then(response => { 
+                window.location = 'http://localhost:3000/myplanning';
+            })
+            .catch(error => { console.log(error) })
     }
 
     render() {
@@ -108,7 +124,7 @@ class UpdateEventForm extends React.Component {
                             <select onChange={event => this.handleRoomChange(event)} className="form-control">
                                 <option selected="selected">Selectionnez une salle</option>
                                 {rooms.map((room, index) =>
-                                    <option name={room} value={index}>{room.roomIdentifier}</option>
+                                    <option name="room" value={index}>{room.roomIdentifier}</option>
                                 )}
                             </select>
                         }

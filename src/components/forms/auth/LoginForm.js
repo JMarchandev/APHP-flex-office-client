@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-import {pushToken} from "../../../services/utils/pushToken";
+import { pushToken } from "../../../services/utils/pushToken";
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class LoginForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
 
-    this.setState({error: "", successMessage: ""})
+    this.setState({ error: "", successMessage: "" })
 
     const sendData = {
       email: this.state.email,
@@ -33,10 +33,15 @@ class LoginForm extends React.Component {
       })
       .then(response => {
         pushToken(response.data.jwt)
-        window.location.href = '/profile'
+        if (response.data.user.firstName && response.data.user.lastName) {
+          window.location.href = '/'
+        } else {
+          window.location.href = '/profile'
+        }
+
       })
       .catch(error => {
-        this.setState({error});
+        this.setState({ error });
       });
   }
 
@@ -49,21 +54,20 @@ class LoginForm extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <div className="col-md-6 login-form-1">
         <h3>Login</h3>
         <form onSubmit={event => this.handleSubmit(event)}>
           <div className="form-group">
             <input type="email" onChange={event => this.handleChange(event)} name="email" className="form-control"
-                   placeholder="Email" value={this.state.email}/>
+              placeholder="Email" value={this.state.email} />
           </div>
           <div className="form-group">
             <input type="password" onChange={event => this.handleChange(event)} name="password" className="form-control"
-                   placeholder="Password" value={this.state.password}/>
+              placeholder="Password" value={this.state.password} />
           </div>
           <div className="form-group">
-            <input type="submit" className="btnSubmit bg-primary" value="Login"/>
+            <input type="submit" className="btnSubmit bg-primary" value="Login" />
           </div>
           <div className="form-group">
             <a href="#" className="ForgetPwd">Forget Password?</a>
