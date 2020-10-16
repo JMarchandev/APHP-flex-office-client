@@ -13,6 +13,7 @@ class UpdateEventForm extends React.Component {
             event: [],
             rooms: [],
             newDate: null,
+            newRoom: null,
             currentUser: []
         }
     }
@@ -48,6 +49,42 @@ class UpdateEventForm extends React.Component {
         }
     }
 
+   handleRoomChange(event) {
+       console.log(event.target.room.value)
+       //this.setState({newRoom: event.target.room['data-room'].value})
+   }
+
+    handleSubmit(event) {
+       event.preventDefault()
+       let eventDate;
+       let user;
+       let room;
+
+       console.log(event.target.room)
+
+       if (this.props.newDate) {
+          eventDate = getCalendarFormatedDate(this.props.newDate)
+       } else {
+          eventDate = event.target.currentEventDate.value
+       }
+
+       if (this.state.newRoom !== null) {
+          room = this.state.newRoom
+       } else {
+          room = this.state.event.room
+       }
+
+       user = this.state.currentUser
+
+       const requestBody = {
+          eventDate: eventDate,
+          user_id: user,
+          room: room,
+       }
+
+       console.log(requestBody)
+    }
+
     render() {
         let newDate;
         const event = this.props.event
@@ -59,19 +96,19 @@ class UpdateEventForm extends React.Component {
 
         return (
             <div className="w-25 ml-2" >
-                <form >
+                <form onSubmit={event => this.handleSubmit(event)}>
                     {error ?
-                        <div class="alert alert-danger" role="alert">
+                        <div className="alert alert-danger" role="alert">
                             {error}
                         </div>
                         : ""}
                     <div className="form-group">
                         <label>Changer de salle ?</label>
                         {isLoading ? "loading" :
-                            <select name="room" className="form-control">
+                            <select onChange={event => this.handleRoomChange(event)} className="form-control">
                                 <option selected="selected">Selectionnez une salle</option>
-                                {rooms.map((room) =>
-                                    <option value={room}>{room.roomIdentifier}</option>
+                                {rooms.map((room, index) =>
+                                    <option name={room} value={index}>{room.roomIdentifier}</option>
                                 )}
                             </select>
                         }
