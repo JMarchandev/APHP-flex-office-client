@@ -21,7 +21,7 @@ const NavBar = () => {
   return (
     <Router>
       <div>
-        <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <div className="container">
             <Link className="navbar-brand" to="/">Flex Office APHP</Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse"
@@ -44,6 +44,9 @@ const NavBar = () => {
               <div className="text-white">
                 {getToken() ?
                   <ul className="navbar-nav mr-auto">
+                    <li className="nav-item">
+                      <Link className="nav-link active" to="/admin">Admin</Link>
+                    </li>
                     <li className="nav-item">
                       <a className="nav-link active" onClick={event => handleDisconnectClick(event)} href="#">Disconnect</a>
                     </li>

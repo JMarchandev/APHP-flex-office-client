@@ -10,10 +10,10 @@ import axios from 'axios';
 import qs from 'querystring'
 
 //Internal imports
-import { getCurrentUser } from '../../../services/api/getCurrentUser';
+import { getCurrentUser } from '../../../services/api/users/getCurrentUser';
 // import { getMyEvents } from '../../services/api/events/getMyEvents';
 import { getFormartedDate } from '../../../services/utils/getFormartedDate';
-import { getRooms } from '../../../services/api/getRooms';
+import { getRooms } from '../../../services/api/rooms/getRooms';
 import { getToken } from '../../../services/utils/getToken'
 
 moment.locale('fr');

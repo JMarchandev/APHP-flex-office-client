@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 //Internal imports
 import Calendar from './Calendar';
-import { getCurrentUser } from '../../services/api/getCurrentUser'
+import { getCurrentUser } from '../../services/api/users/getCurrentUser'
 import { getEventsByUserId } from '../../services/api/events/getEventsByUserId'
-import { constructEventObject } from './constructEventObject';
+import { constructEventObject } from '../../services/utils/constructEventObject';
 
 //CSS imports
 import 'react-big-calendar/lib/css/react-big-calendar.css'; 

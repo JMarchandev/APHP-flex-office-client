@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios"
-import {getToken} from "../../../services/utils/getToken"
-import {pushToken} from "../../../services/utils/pushToken";
+import {getToken} from "../../services/utils/getToken"
+import {pushToken} from "../../services/utils/pushToken";
 
 class RegisterForm extends React.Component {
   constructor(props) {

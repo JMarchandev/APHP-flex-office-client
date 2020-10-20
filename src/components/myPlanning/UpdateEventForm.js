@@ -1,10 +1,10 @@
 import React from 'react';
 
 //Internal imports 
-import { getCurrentUser } from '../../services/api/getCurrentUser';
+import { getCurrentUser } from '../../services/api/users/getCurrentUser';
 import { getAvailableRoomsByDate } from '../../services/api/events/getAvailableRoomsByDate';
 import { getCalendarFormatedDate } from '../../services/utils/getCalendarFormatedDate';
-import { getRooms } from '../../services/api/getRooms';
+import { getRooms } from '../../services/api/rooms/getRooms';
 import { getToken } from '../../services/utils/getToken';
 
 //External inmports

@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import qs from "querystring"
-import {getToken} from "../../../services/utils/getToken";
+import {getToken} from "../../services/utils/getToken";
 
 class updateProfileForm extends React.Component {
   constructor(props) {

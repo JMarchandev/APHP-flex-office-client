@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 
 //Internal imports
 import {getToken} from "../../services/utils/getToken";
-import {getCurrentUser} from "../../services/api/getCurrentUser";
+import {getCurrentUser} from "../../services/api/users/getCurrentUser";
 import {getAvailableRoomsByDate} from "../../services/api/events/getAvailableRoomsByDate"
 import {getFormartedDate} from "../../services/utils/getFormartedDate"
 

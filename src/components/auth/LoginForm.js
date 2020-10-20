@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-import { pushToken } from "../../../services/utils/pushToken";
+import { pushToken } from "../../services/utils/pushToken";
 
 class LoginForm extends React.Component {
   constructor(props) {
