@@ -7,7 +7,6 @@ let status;
 
 getCurrentUser().then(response => {
     status = response.data.status
-    console.log(response.data)
 }).catch(error => {
     return null;
 })

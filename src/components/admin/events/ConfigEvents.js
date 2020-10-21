@@ -27,13 +27,14 @@ const ConfigEvents = () => {
      console.log(eventsList)
     return(
         <div style={{ height: '80vh' }}>
+            <h3 className="text-center m-2">Gestion des évenements</h3>
             <BigCalendar
                 localizer={localizer}
                 events={eventsList}
                 step={60}
                 views={'month'}
                 defaultDate={new Date()}
-                toolbar={true}
+                toolbar={false}
                 onSelectEvent={value => console.log(value)}
             />
         </div>

@@ -5,6 +5,8 @@ import {getToken} from "../../services/utils/getToken";
 import {getCurrentUser} from "../../services/api/users/getCurrentUser";
 import {getAvailableRoomsByDate} from "../../services/api/events/getAvailableRoomsByDate"
 import {getFormartedDate} from "../../services/utils/getFormartedDate"
+import {getDayBeforeBooking} from "../../services/api/config/getSimpleUserConfig";
+import {dayDiff} from "../../services/utils/dayDiff";
 
 //External imports
 import axios from 'axios'
@@ -24,6 +26,7 @@ const BookingPicker = () => {
    const [selectedRoom, setSelectedRoom] = useState(null)
    const [selectDate, setSelectDate] = useState(null)
    const [currentUser, setCurrentUser] = useState([])
+   const [config, setConfig] = useState([])
 
    useEffect(() => {
       getCurrentUser().then(response => {
@@ -31,13 +34,22 @@ const BookingPicker = () => {
       }).catch(error => {
          console.log(error)
       })
+
+      getDayBeforeBooking()
+          .then(response => setConfig(response.data[0]))
+          .catch(error => {console.log(error)})
    }, [])
 
    const handleClickChooseDate = (value) => {
       const dateFormated = getFormartedDate(value)
+      let dayDifference;
 
       setSelectDateFormat(dateFormated)
       setSelectDate(value)
+
+      if (currentDate && dateFormated) {
+         dayDifference = dayDiff(new Date(currentDate), new Date(dateFormated))
+      }
 
       if (value < currentDate) {
          setError('Cette date est déjà passée')
@@ -46,6 +58,17 @@ const BookingPicker = () => {
          return null;
       } else if (value >= currentDate) {
          setError(null)
+      }
+
+      if (currentUser.status === "simpleUser") {
+         if (dayDifference > config.dayBeforeBooking) {
+            setError(`Vous pouvez reserver uniquement ${config.dayBeforeBooking} jours a l'avance.`)
+            setSelectDate(null)
+            setAvailableRooms(null)
+            return null;
+         } else if (dayDifference < config.dayBeforeBooking) {
+            setError(null)
+         }
       }
 
       value.setMinutes(value.getMinutes() - value.getTimezoneOffset());
